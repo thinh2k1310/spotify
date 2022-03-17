@@ -23,6 +23,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             navVC.viewControllers.first?.navigationItem.largeTitleDisplayMode = .always
             window?.rootViewController = navVC
         }
+       
         
         window?.makeKeyAndVisible()
     }
