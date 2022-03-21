@@ -19,6 +19,8 @@ final class AuthManager {
     static let shared = AuthManager()
     
     private init(){}
+    
+    var refreshingToken : Bool = false
     public var signInURL : URL? {
         
         
@@ -93,11 +95,33 @@ final class AuthManager {
         task.resume()
         
     }
+    private var onFreshBlocks = [((String) -> Void)]()
+    public func withValidToken(completion : @escaping (String) -> Void){
+        guard !refreshingToken else {
+            onFreshBlocks.append(completion)
+            return
+        }
+        
+        if shouldRefreshToken {
+            //Refresh
+            refreshIfNeeded{ [weak self] success in
+                if let token = self?.accessToken, success {
+                    completion(token)
+                }
+            }
+        } else {
+            if let token = self.accessToken {
+                completion(token)
+        }
+    }
+}
+    
+    // Supplies valid token to be used with API calls
     public func refreshIfNeeded(completion : @escaping (Bool) -> Void ){
-//        guard shouldRefreshToken else{
-//            completion(true)
-//            return
-//        }
+        guard shouldRefreshToken else{
+            completion(true)
+            return
+        }
         guard let refreshToken = self.refreshToken else{
             return
         }
@@ -105,6 +129,7 @@ final class AuthManager {
         guard let url = URL(string: Constants.tokenAPIURL) else {
             return
         }
+        refreshingToken = true
         var components = URLComponents()
         components.queryItems = [
             URLQueryItem(name: "grant_type", value: "refresh_token"),
@@ -132,6 +157,8 @@ final class AuthManager {
             }
             do {
                 let result = try JSONDecoder().decode(AuthResponse.self, from: safeData)
+                self?.onFreshBlocks.forEach{ $0(result.access_token)}
+                self?.onFreshBlocks.removeAll()
                 self?.cacheToken(result : result)
                  completion(true)
             }catch{

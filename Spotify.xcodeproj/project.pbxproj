@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F36A1D7927E82258000C59A3 /* SettingsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F36A1D7827E82258000C59A3 /* SettingsModel.swift */; };
+		F36A1D7C27E844B3000C59A3 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = F36A1D7B27E844B3000C59A3 /* SDWebImage */; };
 		F388EC2927E30E720022F7C3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F388EC2827E30E720022F7C3 /* AppDelegate.swift */; };
 		F388EC2B27E30E720022F7C3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F388EC2A27E30E720022F7C3 /* SceneDelegate.swift */; };
 		F388EC2D27E30E720022F7C3 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F388EC2C27E30E720022F7C3 /* HomeViewController.swift */; };
@@ -34,6 +36,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F36A1D7827E82258000C59A3 /* SettingsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsModel.swift; sourceTree = "<group>"; };
 		F388EC2527E30E720022F7C3 /* Spotify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Spotify.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F388EC2827E30E720022F7C3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F388EC2A27E30E720022F7C3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -67,6 +70,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F36A1D7C27E844B3000C59A3 /* SDWebImage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -132,6 +136,7 @@
 				F388EC6027E313800022F7C3 /* Audiotrack.swift */,
 				F388EC6227E313960022F7C3 /* Artist.swift */,
 				F388EC6427E313A00022F7C3 /* UserProfile.swift */,
+				F36A1D7827E82258000C59A3 /* SettingsModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -201,6 +206,9 @@
 			dependencies = (
 			);
 			name = Spotify;
+			packageProductDependencies = (
+				F36A1D7B27E844B3000C59A3 /* SDWebImage */,
+			);
 			productName = Spotify;
 			productReference = F388EC2527E30E720022F7C3 /* Spotify.app */;
 			productType = "com.apple.product-type.application";
@@ -229,6 +237,9 @@
 				Base,
 			);
 			mainGroup = F388EC1C27E30E710022F7C3;
+			packageReferences = (
+				F36A1D7A27E844B3000C59A3 /* XCRemoteSwiftPackageReference "SDWebImage" */,
+			);
 			productRefGroup = F388EC2627E30E720022F7C3 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -267,6 +278,7 @@
 				F388EC2D27E30E720022F7C3 /* HomeViewController.swift in Sources */,
 				F388EC5527E312DE0022F7C3 /* PlayerViewController.swift in Sources */,
 				F388EC4927E312550022F7C3 /* AuthViewController.swift in Sources */,
+				F36A1D7927E82258000C59A3 /* SettingsModel.swift in Sources */,
 				F388EC4727E312470022F7C3 /* LibaryViewController.swift in Sources */,
 				F388EC6527E313A00022F7C3 /* UserProfile.swift in Sources */,
 				F388EC6727E32B430022F7C3 /* Extensions.swift in Sources */,
@@ -486,6 +498,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		F36A1D7A27E844B3000C59A3 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImage.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		F36A1D7B27E844B3000C59A3 /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F36A1D7A27E844B3000C59A3 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = F388EC1D27E30E710022F7C3 /* Project object */;
 }
