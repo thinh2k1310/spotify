@@ -24,6 +24,10 @@ class TabBarViewController: UITabBarController {
         vc2.navigationBar.prefersLargeTitles = true
         vc3.navigationBar.prefersLargeTitles = true
         
+        vc1.navigationBar.tintColor = .label
+        vc2.navigationBar.tintColor = .label
+        vc3.navigationBar.tintColor = .label
+        
         vc1.navigationItem.largeTitleDisplayMode = .always
         vc2.navigationItem.largeTitleDisplayMode = .always
         vc3.navigationItem.largeTitleDisplayMode = .always
