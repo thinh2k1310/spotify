@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F3170D8927F096ED005EC05B /* FeaturedPlaylistCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3170D8827F096ED005EC05B /* FeaturedPlaylistCellModel.swift */; };
+		F3170D8B27F0979E005EC05B /* RecommendedTrackCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3170D8A27F0979E005EC05B /* RecommendedTrackCellViewModel.swift */; };
 		F36A1D7927E82258000C59A3 /* SettingsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F36A1D7827E82258000C59A3 /* SettingsModel.swift */; };
 		F36A1D7C27E844B3000C59A3 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = F36A1D7B27E844B3000C59A3 /* SDWebImage */; };
 		F36A1D7E27E8768E000C59A3 /* APIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F36A1D7D27E8768E000C59A3 /* APIImage.swift */; };
@@ -45,6 +47,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F3170D8827F096ED005EC05B /* FeaturedPlaylistCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedPlaylistCellModel.swift; sourceTree = "<group>"; };
+		F3170D8A27F0979E005EC05B /* RecommendedTrackCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendedTrackCellViewModel.swift; sourceTree = "<group>"; };
 		F36A1D7827E82258000C59A3 /* SettingsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsModel.swift; sourceTree = "<group>"; };
 		F36A1D7D27E8768E000C59A3 /* APIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIImage.swift; sourceTree = "<group>"; };
 		F36A1D7F27E876E4000C59A3 /* NewReleasesResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewReleasesResponse.swift; sourceTree = "<group>"; };
@@ -187,6 +191,8 @@
 			isa = PBXGroup;
 			children = (
 				F393E0A127F005B3008A47F3 /* NewReleasesCellViewModel.swift */,
+				F3170D8827F096ED005EC05B /* FeaturedPlaylistCellModel.swift */,
+				F3170D8A27F0979E005EC05B /* RecommendedTrackCellViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -305,6 +311,7 @@
 				F388EC5F27E313770022F7C3 /* Playlist.swift in Sources */,
 				F388EC5927E313290022F7C3 /* AuthManager.swift in Sources */,
 				F393E0A227F005B3008A47F3 /* NewReleasesCellViewModel.swift in Sources */,
+				F3170D8B27F0979E005EC05B /* RecommendedTrackCellViewModel.swift in Sources */,
 				F388EC5727E312FA0022F7C3 /* SearchResultsViewController.swift in Sources */,
 				F36A1D8227E87A64000C59A3 /* FeaturedPlaylistResponse.swift in Sources */,
 				F388EC4D27E312930022F7C3 /* WelcomeViewController.swift in Sources */,
@@ -332,6 +339,7 @@
 				F388EC2B27E30E720022F7C3 /* SceneDelegate.swift in Sources */,
 				F388EC5B27E313380022F7C3 /* APICaller.swift in Sources */,
 				F36A1D7E27E8768E000C59A3 /* APIImage.swift in Sources */,
+				F3170D8927F096ED005EC05B /* FeaturedPlaylistCellModel.swift in Sources */,
 				F388EC4F27E312A60022F7C3 /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -85,7 +85,8 @@ final class APICaller{
                 }
                 do{
                     let result = try JSONDecoder().decode(FeaturedPlaylistResponse.self, from: safeData)
-                   // let result = try JSONSerialization.jsonObject(with: safeData, options: .allowFragments)
+                    //let results = try JSONSerialization.jsonObject(with: safeData, options: .allowFragments)
+                    //print(results)
                     completion(.success(result))
                     
                 }catch{

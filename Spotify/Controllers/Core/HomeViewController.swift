@@ -9,8 +9,8 @@ import UIKit
 
 enum HomeSectionType {
     case newReleases(viewModels: [NewReleasesCellViewModel])
-    case featuredPlaylists(viewModels : [NewReleasesCellViewModel])
-    case recommendedTracks(viewModels : [NewReleasesCellViewModel])
+    case featuredPlaylists(viewModels : [FeaturedPlaylistCellViewModel])
+    case recommendedTracks(viewModels : [RecommendedTrackCellViewModel])
 }
 
 class HomeViewController: UIViewController {
@@ -120,8 +120,16 @@ class HomeViewController: UIViewController {
                                             numberOfTracks: $0.total_tracks,
                                             artistName: $0.artists.first?.name ?? "-")
         })))
-        sections.append(.featuredPlaylists(viewModels: []))
-        sections.append(.recommendedTracks(viewModels: []))
+        sections.append(.featuredPlaylists(viewModels: playlist.compactMap({
+            return FeaturedPlaylistCellViewModel(name: $0.name,
+                                                 artworkURL: URL(string: $0.images.first?.url ?? ""),
+                                                 creatorName: $0.owner.display_name)
+        })))
+        sections.append(.recommendedTracks(viewModels: tracks.compactMap({
+            return RecommendedTrackCellViewModel(name: $0.name,
+                                                 artistName: $0.artists.first?.name ?? "",
+                                                 artworkURL: URL(string: $0.album.images.first?.url ?? "-"))
+        })))
         collectionView.reloadData()
     }
     @objc func didTapSettings(){
@@ -168,28 +176,17 @@ extension HomeViewController : UICollectionViewDataSource, UICollectionViewDeleg
                 return UICollectionViewCell()
             }
             let viewModel = viewModels[indexPath.row]
-            cell.backgroundColor = .blue
+            cell.configure(with: viewModel)
             return cell
         case .recommendedTracks(let viewModels):
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecommendedTrackCollectionViewCell.identifier, for: indexPath) as? RecommendedTrackCollectionViewCell else {
                 return UICollectionViewCell()
             }
             let viewModel = viewModels[indexPath.row]
-            cell.backgroundColor = .green
+            cell.configure(with: viewModel)
             return cell
         }
-        
-        
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
-        if indexPath.section == 0 {
-            cell.backgroundColor = .systemBlue
-        } else if indexPath.section == 1 {
-            cell.backgroundColor = .systemGreen
-        } else if indexPath.section == 2 {
-            cell.backgroundColor = .systemYellow
-        }
-        return cell
-        
+    coll
     }
     private static func createSectionLayout(section : Int) -> NSCollectionLayoutSection{
         switch section {
@@ -216,7 +213,7 @@ extension HomeViewController : UICollectionViewDataSource, UICollectionViewDeleg
         case 1 :
             //Item
             let item = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(
-                widthDimension: .absolute(200),
+                widthDimension: .absolute(180),
                 heightDimension: .absolute(200))
             )
             item.contentInsets = NSDirectionalEdgeInsets(top: 2, leading: 2, bottom: 2, trailing: 2)

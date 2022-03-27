@@ -15,6 +15,8 @@ class NewReleaseCollectionViewCell: UICollectionViewCell {
        let imageView = UIImageView()
         imageView.image = UIImage(systemName: "photo")
         imageView.contentMode = .scaleAspectFill
+        imageView.layer.masksToBounds = true
+        imageView.layer.cornerRadius = 6
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
