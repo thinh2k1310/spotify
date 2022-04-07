@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct PlaylistHeaderViewModel{
+struct HeaderViewModel{
     let name : String?
     let artworkURL : URL?
     let description : String?

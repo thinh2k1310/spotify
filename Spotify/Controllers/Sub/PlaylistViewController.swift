@@ -53,9 +53,9 @@ class PlaylistViewController: UIViewController {
         view.backgroundColor = .systemBackground
         view.addSubview(collectionView)
         collectionView.backgroundColor = .systemBackground
-        collectionView.register(PlaylistHeaderCollectionReusableView.self,
+        collectionView.register(HeaderCollectionReusableView.self,
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-                                withReuseIdentifier: PlaylistHeaderCollectionReusableView.identifier)
+                                withReuseIdentifier: HeaderCollectionReusableView.identifier)
         collectionView.register(RecommendedTrackCollectionViewCell.self,
                                 forCellWithReuseIdentifier: RecommendedTrackCollectionViewCell.identifier)
         collectionView.delegate = self
@@ -117,14 +117,15 @@ extension PlaylistViewController : UICollectionViewDelegate, UICollectionViewDat
         guard kind == UICollectionView.elementKindSectionHeader ,
         let header = collectionView.dequeueReusableSupplementaryView(
             ofKind: kind,
-            withReuseIdentifier: PlaylistHeaderCollectionReusableView.identifier,
-            for: indexPath) as? PlaylistHeaderCollectionReusableView else {
+            withReuseIdentifier: HeaderCollectionReusableView.identifier,
+            for: indexPath) as? HeaderCollectionReusableView else {
                 return UICollectionReusableView()
             }
-        let playlistHeaderVM =  PlaylistHeaderViewModel(name: playlist.name,
-                                                        artworkURL: URL(string: playlist.images.first?.url ?? "" ),
-                                                        description: playlist.description ,
-                                                        owner: playlist.owner.display_name )
+        let playlistHeaderVM =  HeaderViewModel(
+            name: playlist.name,
+            artworkURL: URL(string: playlist.images.first?.url ?? "" ),
+            description: playlist.description ,
+            owner: playlist.owner.display_name )
         header.configure(with: playlistHeaderVM)
         header.delegate = self
         return header
@@ -136,8 +137,8 @@ extension PlaylistViewController : UICollectionViewDelegate, UICollectionViewDat
     
 }
 
-extension PlaylistViewController : PlaylistHeaderViewDelegate{
-    func didTapPlayAll(_ header: PlaylistHeaderCollectionReusableView) {
+extension PlaylistViewController : HeaderViewDelegate{
+    func didTapPlayAll(_ header: HeaderCollectionReusableView) {
         print("playing all")
     }
 }

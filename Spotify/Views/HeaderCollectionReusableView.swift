@@ -8,14 +8,14 @@
 import UIKit
 import SDWebImage
 
-protocol PlaylistHeaderViewDelegate : AnyObject {
-    func didTapPlayAll(_ header : PlaylistHeaderCollectionReusableView )
+protocol HeaderViewDelegate : AnyObject {
+    func didTapPlayAll(_ header : HeaderCollectionReusableView )
 }
 
-class PlaylistHeaderCollectionReusableView: UICollectionReusableView {
+class HeaderCollectionReusableView: UICollectionReusableView {
     static let identifier = "PlaylistHeaderCollectionReusableView"
     
-    weak var delegate : PlaylistHeaderViewDelegate?
+    weak var delegate : HeaderViewDelegate?
     
     private let nameLabel : UILabel = {
        let label = UILabel()
@@ -87,7 +87,7 @@ class PlaylistHeaderCollectionReusableView: UICollectionReusableView {
     @objc func didTapPlayAll(){
         delegate?.didTapPlayAll(self)
     }
-    func configure(with viewModel : PlaylistHeaderViewModel){
+    func configure(with viewModel : HeaderViewModel){
         nameLabel.text = viewModel.name
         descripstionLabel.text = viewModel.description
         ownerLabel.text = viewModel.owner
