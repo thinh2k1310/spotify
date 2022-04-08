@@ -9,7 +9,7 @@ import UIKit
 
 enum HomeSectionType {
     case newReleases(viewModels: [NewReleasesCellViewModel])
-    case featuredPlaylists(viewModels : [FeaturedPlaylistCellViewModel])
+    case featuredPlaylists(viewModels : [PlaylistCellViewModel])
     case recommendedTracks(viewModels : [RecommendedTrackCellViewModel])
 }
 
@@ -128,7 +128,7 @@ class HomeViewController: UIViewController {
                                             artistName: $0.artists.first?.name ?? "-")
         })))
         sections.append(.featuredPlaylists(viewModels: playlist.compactMap({
-            return FeaturedPlaylistCellViewModel(name: $0.name,
+            return PlaylistCellViewModel(name: $0.name,
                                                  artworkURL: URL(string: $0.images.first?.url ?? ""),
                                                  creatorName: $0.owner.display_name)
         })))
@@ -179,7 +179,7 @@ extension HomeViewController : UICollectionViewDataSource, UICollectionViewDeleg
             cell.configure(with: viewModel)
             return cell
         case .featuredPlaylists(let viewModels):
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FeaturedPlaylistCollectionViewCell.identifier, for: indexPath) as? FeaturedPlaylistCollectionViewCell else {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PlaylistCollectionViewCell.identifier, for: indexPath) as? PlaylistCollectionViewCell else {
                 return UICollectionViewCell()
             }
             let viewModel = viewModels[indexPath.row]
@@ -333,7 +333,7 @@ extension HomeViewController : UICollectionViewDataSource, UICollectionViewDeleg
         view.addSubview(collectionView)
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
         collectionView.register(NewReleaseCollectionViewCell.self, forCellWithReuseIdentifier: NewReleaseCollectionViewCell.identifier)
-        collectionView.register(FeaturedPlaylistCollectionViewCell.self, forCellWithReuseIdentifier: FeaturedPlaylistCollectionViewCell.identifier)
+        collectionView.register(PlaylistCollectionViewCell.self, forCellWithReuseIdentifier: PlaylistCollectionViewCell.identifier)
         collectionView.register(RecommendedTrackCollectionViewCell.self, forCellWithReuseIdentifier: RecommendedTrackCollectionViewCell.identifier)
         collectionView.register(TitleHeaderCollectionReusableView.self,
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,

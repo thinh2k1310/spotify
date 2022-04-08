@@ -11,7 +11,7 @@ class AlbumViewController: UIViewController {
     
     private let album : Album
 
-    private var viewModels = [AlbumTrackCellViewModel]()
+    private var viewModels = [TrackCellViewModel]()
     
     private let collectionView = UICollectionView(
         frame: .zero,
@@ -58,8 +58,8 @@ class AlbumViewController: UIViewController {
         collectionView.register(HeaderCollectionReusableView.self,
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
                                 withReuseIdentifier: HeaderCollectionReusableView.identifier)
-        collectionView.register(AlbumTrackCollectionViewCell.self,
-                                forCellWithReuseIdentifier: AlbumTrackCollectionViewCell.identifier)
+        collectionView.register(TrackCollectionViewCell.self,
+                                forCellWithReuseIdentifier: TrackCollectionViewCell.identifier)
         collectionView.delegate = self
         collectionView.dataSource = self
 
@@ -68,7 +68,7 @@ class AlbumViewController: UIViewController {
                 switch result{
                 case  .success(let model):
                     self?.viewModels = model.tracks.items.compactMap({
-                        AlbumTrackCellViewModel(
+                        TrackCellViewModel(
                             name: $0.name,
                             artistName: $0.artists.first?.name ?? "-",
                             artworkURL: URL(string: self?.album.images.first?.url ?? "" ))
@@ -96,8 +96,8 @@ extension AlbumViewController : UICollectionViewDelegate, UICollectionViewDataSo
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: AlbumTrackCollectionViewCell.identifier,
-            for: indexPath) as? AlbumTrackCollectionViewCell else {
+            withReuseIdentifier: TrackCollectionViewCell.identifier,
+            for: indexPath) as? TrackCollectionViewCell else {
                 return UICollectionViewCell()
             }
         cell.configure(with: viewModels[indexPath.row])

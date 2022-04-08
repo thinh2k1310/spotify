@@ -7,8 +7,8 @@
 
 import UIKit
 
-class AlbumTrackCollectionViewCell: UICollectionViewCell {
-    static let identifier = "AlbumTrackCollectionViewCell"
+class TrackCollectionViewCell: UICollectionViewCell {
+    static let identifier = "TrackCollectionViewCell"
     
     private let trackCoverImageView : UIImageView = {
        let imageView = UIImageView()
@@ -70,7 +70,7 @@ class AlbumTrackCollectionViewCell: UICollectionViewCell {
         artistNameLabel.text = nil
         trackCoverImageView.image = nil
     }
-    func configure(with viewModel : AlbumTrackCellViewModel){
+    func configure(with viewModel : TrackCellViewModel){
         trackNameLabel.text = viewModel.name
         artistNameLabel.text = viewModel.artistName
         trackCoverImageView.sd_setImage(with: viewModel.artworkURL, completed: nil)

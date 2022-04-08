@@ -186,4 +186,44 @@ final class APICaller{
             task.resume()
         }
     }
+    
+    public func getCategories(completion : @escaping (Result<[Category],Error>) -> Void){
+        createRequest(with: URL(string: Constants.baseURL + "/browse/categories?limit=50"), type: .GET){ request in
+            let task = URLSession.shared.dataTask(with: request) { data, _, error in
+                guard let safeData = data , error == nil else {
+                    return
+                }
+                do{
+                    let result = try JSONDecoder().decode(CategoriesResponse.self, from: safeData)
+                    //let result = try JSONSerialization.jsonObject(with: safeData, options: .allowFragments)
+                    completion(.success(result.categories.items))
+                }catch{
+                    print(error)
+                    completion(.failure(error))
+                }
+            }
+            task.resume()
+        }
+    }
+    
+    public func getCategoryPlaylist(category : Category, completion : @escaping (Result<[Playlist],Error>) -> Void){
+        createRequest(with: URL(string: Constants.baseURL + "/browse/categories/\(category.id)/playlists?limit=50"),
+                      type: .GET){ request in
+            let task = URLSession.shared.dataTask(with: request) { data, _, error in
+                guard let safeData = data , error == nil else {
+                    return
+                }
+                do{
+                    let result = try JSONDecoder().decode(CategoryPlaylistResponse .self, from: safeData)
+                    //let result = try JSONSerialization.jsonObject(with: safeData, options: .allowFragments)
+                    completion(.success(result.playlists.items))
+                }catch{
+                    print(error)
+                    completion(.failure(error))
+                }
+            }
+            task.resume()
+        }
+    }
+    
 }
