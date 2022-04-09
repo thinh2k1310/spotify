@@ -186,9 +186,9 @@ final class APICaller{
             task.resume()
         }
     }
-    
+    // MARK: - CATEGORY
     public func getCategories(completion : @escaping (Result<[Category],Error>) -> Void){
-        createRequest(with: URL(string: Constants.baseURL + "/browse/categories?limit=50"), type: .GET){ request in
+        createRequest(with: URL(string: Constants.baseURL + "/browse/categories?locale=en_US&limit=50"), type: .GET){ request in
             let task = URLSession.shared.dataTask(with: request) { data, _, error in
                 guard let safeData = data , error == nil else {
                     return
@@ -217,6 +217,34 @@ final class APICaller{
                     let result = try JSONDecoder().decode(CategoryPlaylistResponse .self, from: safeData)
                     //let result = try JSONSerialization.jsonObject(with: safeData, options: .allowFragments)
                     completion(.success(result.playlists.items))
+                }catch{
+                    print(error)
+                    completion(.failure(error))
+                }
+            }
+            task.resume()
+        }
+    }
+    
+    // MARK: - SEARCH
+    public func search(with query : String, completion: @escaping (Result<[SearchResult],Error>) -> Void){
+        createRequest(with: URL(
+            string: Constants.baseURL + "/search?type=album,track,playlist,artist&limit=10&q=\(query.addingPercentEncoding(withAllowedCharacters : .urlQueryAllowed) ?? "")"),
+            type: .GET){ request in
+            let task = URLSession.shared.dataTask(with: request) { data, _, error in
+                guard let safeData = data , error == nil else {
+                    return
+                }
+                do{
+                    let result = try JSONDecoder().decode(SearchResultsResponse.self, from: safeData)
+                    //let result = try JSONSerialization.jsonObject(with: safeData, options: .allowFragments)
+                    var searchResults : [SearchResult] = []
+                    searchResults.append(contentsOf: result.tracks.items.compactMap({.track(model: $0)}))
+                    searchResults.append(contentsOf: result.albums.items.compactMap({.album(model: $0)}))
+                    searchResults.append(contentsOf: result.artists.items.compactMap({.artist(model: $0)}))
+                    searchResults.append(contentsOf: result.playlists.items.compactMap({.playlist(model: $0)}))
+                    completion(.success(searchResults))
+                    //print(result)
                 }catch{
                     print(error)
                     completion(.failure(error))

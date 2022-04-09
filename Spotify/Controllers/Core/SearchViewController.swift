@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SafariServices
 
 class SearchViewController: UIViewController {
     
@@ -44,6 +45,7 @@ class SearchViewController: UIViewController {
         title = "Search"
         view.backgroundColor = .systemBackground
         searchController.searchResultsUpdater = self
+        searchController.searchBar.delegate = self
         navigationItem.searchController = searchController
         view.addSubview(collectionView)
         collectionView.register(
@@ -73,14 +75,47 @@ class SearchViewController: UIViewController {
  
 }
 
-extension SearchViewController : UISearchResultsUpdating{
-    func updateSearchResults(for searchController: UISearchController) {
+extension SearchViewController : UISearchResultsUpdating, UISearchBarDelegate, SearchResultsViewControllerDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let resultsController = searchController.searchResultsController as? SearchResultsViewController,
-              let query = searchController.searchBar.text,
+              let query = searchBar.text,
               !query.trimmingCharacters(in: .whitespaces).isEmpty else {
-                  return
+                 return
               }
-        print(query)
+        resultsController.delegate = self
+        APICaller.shared.search(with: query) { result in
+            DispatchQueue.main.async {
+                switch result{
+                case.success(let results):
+                    resultsController.update(with: results)
+                case.failure(let errors):
+                    print(errors)
+                }
+            }
+        }
+    }
+    func didTapResult(_ result: SearchResult) {
+        switch result{
+        case .album(let album):
+            let vc = AlbumViewController(album: album)
+            vc.navigationItem.largeTitleDisplayMode = .never
+            navigationController?.pushViewController(vc, animated: true)
+        case .artist(let artist):
+            guard let url = URL(string: artist.external_urls["spotify"] ?? "") else {
+                return
+            }
+            let vc = SFSafariViewController(url: url)
+            present(vc, animated: true)
+        case .track(let track):
+            break
+        case .playlist(let playlist):
+            let vc = PlaylistViewController(playlist: playlist)
+            vc.navigationItem.largeTitleDisplayMode = .never
+            navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+    func updateSearchResults(for searchController: UISearchController) {
+        
     }
     
     
