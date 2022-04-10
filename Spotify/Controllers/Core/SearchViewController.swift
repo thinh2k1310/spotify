@@ -107,7 +107,7 @@ extension SearchViewController : UISearchResultsUpdating, UISearchBarDelegate, S
             let vc = SFSafariViewController(url: url)
             present(vc, animated: true)
         case .track(let track):
-            break
+            PlaybackPresenter.shared.startPlayback(from: self, track: track )
         case .playlist(let playlist):
             let vc = PlaylistViewController(playlist: playlist)
             vc.navigationItem.largeTitleDisplayMode = .never
