@@ -91,6 +91,6 @@ class HeaderCollectionReusableView: UICollectionReusableView {
         nameLabel.text = viewModel.name
         descripstionLabel.text = viewModel.description
         ownerLabel.text = viewModel.owner
-        imageView.sd_setImage(with: viewModel.artworkURL, completed: nil)
+        imageView.sd_setImage(with: viewModel.artworkURL,placeholderImage: UIImage(systemName: "photo"), completed: nil)
     }
 }

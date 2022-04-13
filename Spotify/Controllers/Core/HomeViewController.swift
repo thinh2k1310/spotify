@@ -42,6 +42,46 @@ class HomeViewController: UIViewController {
         fetchData()
         configureCollectionView()
         view.addSubview(spinner)
+        addLongTapGesture()
+    }
+    
+    private func addLongTapGesture(){
+        let gesture = UILongPressGestureRecognizer(target: self, action: #selector(didLongPress(_:)))
+        collectionView.isUserInteractionEnabled = true
+        collectionView.addGestureRecognizer(gesture)
+    }
+    
+    @objc func didLongPress( _ gesture : UILongPressGestureRecognizer){
+        guard gesture.state == .began else {
+            return
+        }
+        
+        let touchPoint = gesture.location(in: collectionView)
+        guard let indexPath = collectionView.indexPathForItem(at: touchPoint),
+              indexPath.section == 2 else {
+                  return
+              }
+        let track = tracks[indexPath.row]
+        
+        let actionSheet = UIAlertController(
+            title: track.name,
+            message: "Would you like to add this to a playlist?",
+            preferredStyle: .actionSheet)
+        
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        actionSheet.addAction(UIAlertAction(title: "Add to a playlist", style: .default, handler: { [weak self] _ in
+            DispatchQueue.main.async {
+                let vc = LibraryPlaylistViewController()
+                vc.selectionHandler = { playlist in
+                    APICaller.shared.addTrackToPlaylist(track: track, playlist: playlist) { success in
+                       
+                    }
+                }
+                vc.title = "Select Playlist"
+                self?.present(UINavigationController(rootViewController: vc), animated: true,completion: nil)
+            }
+        }))
+        present(actionSheet, animated: true)
     }
     
     private func fetchData(){
@@ -106,7 +146,7 @@ class HomeViewController: UIViewController {
             guard let albums = newReleases?.albums.items,
                   let playlists = featuredPlaylists?.playlists.items,
                   let tracks = recommendedTracks?.tracks else {
-                      return
+                    fatalError("Model is nill")
                   }
             self.configureModels(albums: albums, playlist: playlists, tracks: tracks)
             

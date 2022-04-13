@@ -79,7 +79,7 @@ class SearchResultTableViewCell: UITableViewCell {
         }
         else {
             
-            iconImageView.sd_setImage(with: viewModel.artworkURL, completed: nil)
+            iconImageView.sd_setImage(with: viewModel.artworkURL,placeholderImage: UIImage(systemName: "photo") ,completed: nil)
         }
     }
 
