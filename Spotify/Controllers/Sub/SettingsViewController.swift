@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import simd
 
 class SettingsViewController: UIViewController {
     
@@ -50,7 +51,25 @@ class SettingsViewController: UIViewController {
         navigationController?.pushViewController(vc, animated: true)
     }
     private func signOut(){
-        
+        let alertController = UIAlertController(title: "Sign Out",
+                                                message: "Are you sure to sign out?",
+                                                preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alertController.addAction(UIAlertAction(title: "Sign Out", style: .destructive, handler: { _ in
+            AuthManager.shared.signOut(){[weak self] signOut in
+                if signOut {
+                    DispatchQueue.main.async {
+                        let navVC = UINavigationController(rootViewController: WelcomeViewController())
+                        navVC.navigationBar.prefersLargeTitles = true
+                        navVC.viewControllers.first?.navigationItem.largeTitleDisplayMode = .always
+                        navVC.modalPresentationStyle = .fullScreen
+                        self?.present(navVC, animated: true, completion: {
+                            self?.navigationController?.popToRootViewController(animated: false)
+                        })
+                    }
+                }
+            }
+        }))
     }
 }
 extension SettingsViewController : UITableViewDataSource, UITableViewDelegate{

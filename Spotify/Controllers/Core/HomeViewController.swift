@@ -261,6 +261,7 @@ extension HomeViewController : UICollectionViewDataSource, UICollectionViewDeleg
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
+        HapticsManager.shared.vibrateForSeletion()
         let section = sections[indexPath.section]
         switch section {
         case .newReleases :

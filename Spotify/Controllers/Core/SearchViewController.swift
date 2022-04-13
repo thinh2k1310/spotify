@@ -144,6 +144,7 @@ extension SearchViewController : UICollectionViewDataSource, UICollectionViewDel
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
+        HapticsManager.shared.vibrateForSeletion()
         let category = categories[indexPath.row]
         let vc = CategoryViewController(category: category)
         vc.title = category.name
