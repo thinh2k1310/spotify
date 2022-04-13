@@ -70,6 +70,7 @@ class SettingsViewController: UIViewController {
                 }
             }
         }))
+        present(alertController,animated: true)
     }
 }
 extension SettingsViewController : UITableViewDataSource, UITableViewDelegate{
